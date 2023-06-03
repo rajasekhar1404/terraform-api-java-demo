@@ -149,7 +149,6 @@ public class MachineWorkspaceService {
         return response.getBody();
     }
 
-
     public byte[] generateTerraformZip() {
 
         // Create the main.tf file and write the content
@@ -213,6 +212,37 @@ public class MachineWorkspaceService {
 
         fileInputStream.close();
         tarOutputStream.closeArchiveEntry();
+    }
+
+    /*    ==============================================================================================    */
+
+    public Object destroyWorkspace(DestroyWorkspaceRequest destroyWorkspaceRequest) {
+        ResponseEntity<Object> response = restTemplate.postForEntity(TerraformAPIs.WORKSPACE_DESTROY, getEntity(buildDestroyRequest(destroyWorkspaceRequest), getOrganization().getAccessToken()), Object.class);
+        return response.getBody();
+    }
+
+    public CreateWorkspaceRequestBuilder buildDestroyRequest(DestroyWorkspaceRequest destroyWorkspaceRequest) {
+        CreateWorkspaceRequestBuilder request = new CreateWorkspaceRequestBuilder();
+        WorkspaceData data = new WorkspaceData();
+        DestroyWorkspaceAttributes attributes = new DestroyWorkspaceAttributes();
+        WorkspaceDataRelationships relationships = new WorkspaceDataRelationships();
+        WorkspaceDataRelationshipsWorkspace workspace = new WorkspaceDataRelationshipsWorkspace();
+        WorkspaceDataRelationshipsWorkspaceData workspaceData = new WorkspaceDataRelationshipsWorkspaceData();
+        workspaceData.setId(destroyWorkspaceRequest.getWorkspaceId());
+        workspaceData.setType("workspaces");
+        workspace.setData(workspaceData);
+        relationships.setWorkspace(workspace);
+
+        attributes.setDestroy(true);
+        attributes.setMessage(destroyWorkspaceRequest.getMessage());
+        data.setType("runs");
+        data.setRelationships(relationships);
+        data.setAttributes(attributes);
+
+        request.setData(data);
+
+        return request;
+
     }
 
     /*    ==============================================================================================    */

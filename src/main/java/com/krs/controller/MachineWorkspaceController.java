@@ -65,4 +65,11 @@ public class MachineWorkspaceController {
         return machineWorkspaceService.createConfiguration();
     }
 
+    // Destroy terraform workspace
+
+    @PostMapping("/destroy")
+    public Object destroyWorkspace(@RequestBody DestroyWorkspaceRequest destroyWorkspaceRequest) {
+        return machineWorkspaceService.destroyWorkspace(destroyWorkspaceRequest);
+    }
+
 }
