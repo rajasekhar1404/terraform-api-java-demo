@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WorkspaceData {
-    private WorkspaceDataAttributes attributes;
+    private String id;
     private String type;
+    private Object attributes;
     private WorkspaceDataRelationships relationships;
 }

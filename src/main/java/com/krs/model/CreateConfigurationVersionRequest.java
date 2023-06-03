@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateWorkspaceRequest {
-    private String workspaceName;
+public class CreateConfigurationVersionRequest {
+    private String workspaceId;
 }

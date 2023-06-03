@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:admin@rajasekhar.udi03wn.mongodb.net/rajasekhar-karampudi?retryWrites=true&w=majority
