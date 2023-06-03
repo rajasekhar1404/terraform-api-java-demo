@@ -131,7 +131,7 @@ public class MachineWorkspaceService {
     }
 
     private Workspace configurationVersionResponseBuilder(Workspace workspace) {
-        CreateConfigurationVersionAttributes attributes = (CreateConfigurationVersionAttributes) workspace.getData().getAttributes();
+        CreateConfigurationVersionAttributes attributes = (CreateConfigurationVersionAttributes) workspace.getData().getAttributes(); // issue with casting, this has to be fixed to get the uploadurl from the db
         workspace.getData().setAttributes(attributes);
         return workspace;
     }
@@ -153,6 +153,8 @@ public class MachineWorkspaceService {
 
         // Create the main.tf file and write the content
         File mainTfFile = new File("main.tf");
+
+        // This terraform content should come from request body or a equivalent model has to be created 
         String terraformContent = "terraform {\n" +
                 "  required_providers {\n" +
                 "    aws = {\n" +
